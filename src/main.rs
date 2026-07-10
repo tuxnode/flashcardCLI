@@ -19,7 +19,17 @@ pub struct CardDeck {
     pub file_path: String,
 }
 
-fn main() {}
+fn main() {
+    let args = Args::parse().unwrap_or_else(|e| {
+        eprintln!("{}", e);
+        std::process::exit(1);
+    });
+
+    match load_cards(&args.file_path) {
+        Ok(cards) => {},
+        Err(e) => eprintln!("Failed to load: {}", e),
+    } 
+}
 
 fn load_cards(path: &str) -> Result<Vec<FlashCard>, Box<dyn std::error::Error>> {
     let content = fs::read_to_string(path)?;

@@ -1,6 +1,6 @@
 // CLI Config Code
 
-use std::{fmt::format, path::Path};
+use std::path::Path;
 
 pub struct Args {
     pub mode: String,
@@ -12,7 +12,7 @@ impl Args {
         let args: Vec<String> = std::env::args().collect();
 
         match args.len() {
-            1 => Err(String::from("Usage: flashcard <mode> filepath")),
+            1 => Err(String::from("Usage: flashcard <mode> <cards.json>")),
             2 => {
                 let file_path = args[1].clone();
                 if !Path::new(&file_path).exists() {
@@ -27,7 +27,7 @@ impl Args {
                 let mode = args[1].clone();
                 let file_path = args[2].clone();
                 if mode != "random" && mode != "ordered" {
-                    return Err(format!("Invalid mode {}: random, ordered", mode));
+                    return Err(format!("Invalid mode {}", mode));
                 }
                 if !Path::new(&file_path).exists() {
                     return Err(format!("Invalid path: {}", file_path));
