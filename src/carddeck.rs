@@ -1,6 +1,8 @@
 use std::fs::File;
 use std::io::BufReader;
 
+use serde_json::value::Serializer;
+
 use crate::flashcard::FlashCard;
 
 pub struct CardDeck {
@@ -23,11 +25,30 @@ impl CardDeck {
     }
 
     // Write cards information back to JSON file
-    pub fn save() -> Result<(), Box<dyn std::error::Error>> {}
+    pub fn save(&self) -> Result<(), Box<dyn std::error::Error>> {
+        let json_data = serde_json::to_string_pretty(&self.cards)?;
+        std::fs::write(&self.file_path, json_data)?;
+        Ok(())
+    }
 
     // Return a random number
-    pub fn pick_random(&self) -> &FlashCard {}
+    pub fn pick_random(&self) -> &FlashCard {
+        use rand::Rng;
+        let mut rng = rand::thread_rng();
+        let index = rng.gen_range(0..self.cards.len());
+        // Return random FlashCard according to random usize
+        &self.cards[index]
+    }
 
     // Update cords scros
-    pub fn update_score(index: usize, correct: bool) {}
+    pub fn update_score(&mut self, index: usize, correct: bool) {
+        if index < self.cards.len() {
+            if correct {
+                self.cards[index].score += 1;
+            } else {
+                self.cards[index].score -= 1;
+            }
+            self.cards[index].score = self.cards[index].score.clamp(0, 10);
+        }
+    }
 }
