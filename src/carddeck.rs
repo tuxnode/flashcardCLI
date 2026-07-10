@@ -1,8 +1,6 @@
 use std::fs::File;
 use std::io::BufReader;
 
-use serde_json::value::Serializer;
-
 use crate::flashcard::FlashCard;
 
 pub struct CardDeck {
