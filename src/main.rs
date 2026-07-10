@@ -1,11 +1,7 @@
 use std::io::{self, Write};
 
-use carddeck::CardDeck;
-use config::Args;
-
-mod carddeck;
-mod config;
-mod flashcard;
+use flashcard::CardDeck;
+use flashcard::config::Args;
 
 fn main() {
     let args = Args::parse().unwrap_or_else(|e| {
