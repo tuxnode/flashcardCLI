@@ -1,0 +1,7 @@
+[
+  { "question": "What is ownership?", "answer": "A set of rules for managing memory", "score": 0 },
+  { "question": "What is borrowing?", "answer": "References that let you use data without taking ownership", "score": 0 },
+  { "question": "What is a reference?", "answer": "A value that is a reference to another value", "score": 0 },
+  { "question": "What is a mutable reference?", "answer": "A reference that allows you to modify the borrowed value", "score": 0 },
+  { "question": "What is a string slice?", "answer": "A reference to a contiguous sequence of elements in a string", "score": 0 }
+]
