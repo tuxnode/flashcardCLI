@@ -8,15 +8,15 @@ pub struct Args {
 }
 
 impl Args {
-    pub fn parse() -> Result<Self, String> {
+    pub fn parse() -> Result<Self, Box<dyn std::error::Error>> {
         let args: Vec<String> = std::env::args().collect();
 
         match args.len() {
-            1 => Err(String::from("Usage: flashcard <mode> <cards.json>")),
+            1 => Err(String::from("Usage: flashcard <mode> <cards.json>").into()),
             2 => {
                 let file_path = args[1].clone();
                 if !Path::new(&file_path).exists() {
-                    return Err(format!("Invalid path: {}", file_path));
+                    return Err(format!("Invalid path: {}", file_path).into());
                 }
                 Ok(Self {
                     mode: String::from("random"),
@@ -27,17 +27,17 @@ impl Args {
                 let mode = args[1].clone();
                 let file_path = args[2].clone();
                 if mode != "random" && mode != "ordered" {
-                    return Err(format!("Invalid mode {}", mode));
+                    return Err(format!("Invalid mode {}", mode).into());
                 }
                 if !Path::new(&file_path).exists() {
-                    return Err(format!("Invalid path: {}", file_path));
+                    return Err(format!("Invalid path: {}", file_path).into());
                 }
                 Ok(Self {
                     mode: mode,
                     file_path: file_path,
                 })
             }
-            _ => Err(String::from("Too many arguments")),
+            _ => Err(String::from("Too many arguments").into()),
         }
     }
 }
