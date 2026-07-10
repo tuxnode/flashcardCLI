@@ -63,8 +63,11 @@ mod tests {
 
     #[test]
     fn test_save() {
+        let test_file = "test_save_unit.json";
         let mut deck = CardDeck::new("cards.json").unwrap();
+        deck.file_path = test_file.to_string();
         deck.save().unwrap();
+        let _ = std::fs::remove_file(test_file);
     }
 
     #[test]
