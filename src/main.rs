@@ -1,10 +1,9 @@
-use std::env;
 use std::fs;
 use std::io;
 
 use serde::{Deserialize, Serialize};
 
-use crate::config::print_args;
+use config::Args;
 
 mod config;
 
@@ -20,12 +19,7 @@ pub struct CardDeck {
     pub file_path: String,
 }
 
-fn main() {
-    let args: Vec<String> = env::args().collect();
-    if args.len() != 2 {
-      print_args();
-    }
-}
+fn main() {}
 
 fn load_cards(path: &str) -> Result<Vec<FlashCard>, Box<dyn std::error::Error>> {
     let content = fs::read_to_string(path)?;
