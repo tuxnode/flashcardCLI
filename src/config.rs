@@ -20,7 +20,7 @@ impl Args {
                 }
                 Ok(Self {
                     mode: String::from("random"),
-                    file_path: file_path,
+                    file_path,
                 })
             }
             3 => {
@@ -33,8 +33,8 @@ impl Args {
                     return Err(format!("Invalid path: {}", file_path).into());
                 }
                 Ok(Self {
-                    mode: mode,
-                    file_path: file_path,
+                    mode,
+                    file_path,
                 })
             }
             _ => Err(String::from("Too many arguments").into()),

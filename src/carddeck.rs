@@ -17,7 +17,7 @@ impl CardDeck {
 
         let cards: Vec<FlashCard> = serde_json::from_reader(reader)?;
         Ok(CardDeck {
-            cards: cards,
+            cards,
             file_path: path.to_string(),
         })
     }
