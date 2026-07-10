@@ -50,3 +50,35 @@ impl CardDeck {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_new() {
+        let deck = CardDeck::new("cards.json").unwrap();
+        assert!(!deck.cards.is_empty());
+    }
+
+    #[test]
+    fn test_save() {
+        let mut deck = CardDeck::new("cards.json").unwrap();
+        deck.save().unwrap();
+    }
+
+    #[test]
+    fn test_pick_random() {
+        let deck = CardDeck::new("cards.json").unwrap();
+        let card = deck.pick_random();
+        assert!(!card.question.is_empty());
+    }
+
+    #[test]
+    fn test_update_score() {
+        let mut deck = CardDeck::new("cards.json").unwrap();
+        let old_score = deck.cards[0].score;
+        deck.update_score(0, true);
+        assert_eq!(deck.cards[0].score, old_score + 1);
+    }
+}
